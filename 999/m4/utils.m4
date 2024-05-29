@@ -1,0 +1,1 @@
+define(uppercase,[translit($1,a-z,A-Z)])dnl

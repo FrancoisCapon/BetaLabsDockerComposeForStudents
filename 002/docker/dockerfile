@@ -1,0 +1,18 @@
+FROM debian:bookworm as build
+RUN apt update
+
+RUN apt install -y nano openssl procps curl iproute2 iputils-ping lighttpd
+
+RUN echo "root:qwerty" | chpasswd
+
+RUN useradd -u 1000 -ms /bin/bash student
+
+RUN umask 0000 && mkdir -p /school/public
+
+FROM scratch
+COPY --from=build / /
+USER student
+WORKDIR /home/student
+CMD sleep infinity
+
+
